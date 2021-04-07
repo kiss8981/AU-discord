@@ -1,16 +1,28 @@
-# Toaru-kagaku-no-music-bot
+명령어
+--
+!도움 일반
+- 기본적인 명령어들을 보내드려요!
 
-<a href="https://discord.gg/etzmFDGFVg"><img src="https://img.shields.io/discord/803935936219578368?color=7289da&logo=discord&logoColor=white" alt="Discord server" /></a>
-<a href="https://discord.com/oauth2/authorize?client_id=714140461840728144&permissions=3165184&scope=bot"><img src="https://api.koreanbots.dev/widget/bots/servers/714140461840728144.svg" alt="Server count" /></a>
-<a href="https://www.codefactor.io/repository/github/newpremium/toaru-kagaku-no-music-bot/overview/main"><img src="https://www.codefactor.io/repository/github/newpremium/toaru-kagaku-no-music-bot/badge/main" alt="CodeFactor" /></a>
-<a href="https://www.codacy.com/gh/NewPremium/Toaru-kagaku-no-music-bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NewPremium/Toaru-kagaku-no-music-bot&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/a077da0e48aa4adbad939e0e43042e60"/></a>
+!도움 음악
+- 음악 관련 명령어들을 보내드려요!
 
-## Heroku Deploy
+!도움 학교
+- 학교 관련 명령어들을 보내드려요!
 
-<img src="https://github.com/NewPremium/Toaru-kagaku-no-music-bot/blob/main/image/sorry_lavalink.py_dev.jpg?raw=true" width="300"></img>
-<br>~~하지말라는건 구태여 해야 즐거운법!~~
+!도움 유틸
+- 유틸리티 관련 명령어들을 보내드려요!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NewPremium/Toaru-kagaku-no-music-bot/tree/main)
+!도움 경고
+- 경고 관련 명령어들을 보내드려요!
+
+!도움 전적
+- 전적 관련 명령어들을 보내드려요!
+
+## 사용된 오픈소스
+[경고 오픈소스](https://github.com/Team-EG/j-bot-old) 
+[롤 전적 오픈소스](https://github.com/J-hoplin1/League-Of-Legend-Search-Bot)
+[노래봇 오픈소스](https://github.com/eunwoo1104/Simple-Python-Music-Bot)
+[자가진단 오픈소스](https://github.com/331leo/hcskr_python)
 
 ## Note
 
@@ -26,12 +38,6 @@
 * [EZPaginator](https://github.com/khk4912/EZPaginator)
 
 ## How to install
-
-### Heroku 로 사용하는 방법
-
-1. 위 Heroku Deploy 버튼을 누른다.
-2. 기초 설정을 한다.
-3. Deploy 한다.
 
 ### 컴퓨터로 사용하는 방법
 
@@ -55,4 +61,3 @@ class Development(Config):
 ```
 `sample_config.py`를 **참고** 하여 만드시면 됩니다.<br>
 3. `python -m musicbot` 명령어를 실행한다.
-"# AU-discord" 
