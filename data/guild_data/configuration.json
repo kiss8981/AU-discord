@@ -1,0 +1,13 @@
+{
+    "token": "",
+    "antiProfanity": true,
+    "antiNudity": true,
+    "antiSpam": true,
+    "allowSpam": [],
+    "captcha": false,
+    "captchaChannel": false,
+    "logChannel": 1,
+    "temporaryRole": 1,
+    "roleGivenAfterCaptcha": false,
+    "minAccountDate": 86400
+}
