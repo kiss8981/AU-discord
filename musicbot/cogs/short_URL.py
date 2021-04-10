@@ -12,8 +12,8 @@ class shortURL(commands.Cog):
 
     @commands.command(name="단축주소", aliases=["shortlink", "slink", "shorturl"])
     async def shorturl(self, ctx, arg):
-        client_id = "UOdkKOt8nS0r96t64l1f"  # 개발자센터에서 발급받은 Client ID 값
-        client_secret = "9tOH5iXEza"  # 개발자센터에서 발급받은 Client Secret 값
+        client_id = ""  # 네이버 개발자센터에서 발급받은 Client ID 값
+        client_secret = ""  # 네이버 개발자센터에서 발급받은 Client Secret 값
         encText = urllib.parse.quote(arg)
         data = "url=" + encText
         url = "https://openapi.naver.com/v1/util/shorturl"
