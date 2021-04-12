@@ -114,8 +114,6 @@ class warning(commands.Cog):
             except FileNotFoundError:
                 await ctx.send(get_lan(ctx.author.id, 'warning_none'))
 
-
-
             if cases is None:
                 cases = get_lan(ctx.author.id, 'warning_case_none')
 
@@ -169,21 +167,52 @@ class warning(commands.Cog):
 
         with open(f'data/guild_data/{guild_id}/admin.json', 'r') as f:
             warn_data = json.load(f)
+        count = len(warn_data[str(member.id)]["warn"])
+        try:
+            if count == 1:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_1'))
+                await member.remove_roles(role)
+            if count == 2:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_2'))
+                await member.remove_roles(role)
+            if count == 3:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_3'))
+                await member.remove_roles(role)
+            if count == 4:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_4'))
+                await member.remove_roles(role)
+            if count == 5:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_5'))
+                await member.remove_roles(role)
+            if count == 6:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_6'))
+                await member.remove_roles(role)
+            if count == 7:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_7'))
+                await member.remove_roles(role)
+            if count == 8:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_8'))
+                await member.remove_roles(role)
+            if count == 9:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_9'))
+                await member.remove_roles(role)
+            if count == 10:
+                role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_10'))
+                await member.remove_roles(role)
+        except:
+            pass
 
         try:
             del warn_data[str(member.id)]["warn"][str(num)]
-
+            with open(f'data/guild_data/{guild_id}/admin.json', 'w') as s:
+                json.dump(warn_data, s, indent=4)
+            await ctx.send(get_lan(ctx.author.id, 'wardel_msg'))
         except KeyError:
             await ctx.send(get_lan(ctx.author.id, 'warning_none'))
         except FileNotFoundError:
             await ctx.send(get_lan(ctx.author.id, 'warning_none'))
         except MissingRequiredArgument:
             await ctx.send(get_lan(ctx.author.id, 'wardel_mssarg'))
-
-        with open(f'data/guild_data/{guild_id}/admin.json', 'w') as s:
-            json.dump(warn_data, s, indent=4)
-
-        await ctx.send(get_lan(ctx.author.id, 'wardel_msg'))
 
     @warningdel.error
     async def warningdel_error(self, ctx, error):
