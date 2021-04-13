@@ -243,7 +243,7 @@
     "warning_case_none": "아무 경고도 존재하지 않습니다",
     "warning_case_error": "!누적경고 <언급> or <유저아이디>",
     "warning_ac": "누적된 경고",
-    "warning_ac_de": "유저: {member}",
+    "warning_ac_de": "유저: {member.mention}",
     "warning_info_error": "!경고정보 <경고ID>\n 경고ID는 !누적경고 <언급> or <유저아이디> 로 확인가능합니다",
     "warninginfo_detail": "경고 세부 정보",
     "warning_detail": "경고 이유 및 경고 발급 유저",

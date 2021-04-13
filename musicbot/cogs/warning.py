@@ -1,13 +1,14 @@
-import json
 from datetime import datetime
-import os
 import shutil
 import time
 import discord
 from discord.utils import get
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
 from musicbot.utils.language import get_lan
+import motor.motor_asyncio
+
+dbclient = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
+db = dbclient.test
 
 
 class warning(commands.Cog):
@@ -22,35 +23,15 @@ class warning(commands.Cog):
         if reason is None:
             reason = get_lan(ctx.author.id, 'warning_none')
 
-        data_exist = os.path.isfile(f"data/guild_data/{guild_id}/admin.json")
-        if data_exist:
-            pass
-        else:
-            try:
-                shutil.copy('data/guild_data/data.json', f'data/guild_data/{guild_id}/admin.json')
-            except:
-                os.mkdir(f'data/guild_data/{guild_id}/')
-                shutil.copy('data/guild_data/data.json', f'data/guild_data/{guild_id}/admin.json')
-
         currenttime = time.strftime('%Y%m%d%H%M%S')
+        await db.warning.insert_one(
+            {"guild_id": guild_id, "user_id": str(member.id), "reason": f"{reason}, by {ctx.author}",
+             "time": currenttime})
 
-        with open(f'data/guild_data/{guild_id}/admin.json', 'r') as f:
-            warn_data = json.load(f)
-
-        try:
-            warn_data[str(member.id)]["warn"][str(currenttime)] = f"{reason}, by {ctx.author}"
-        except KeyError:
-            warn_data[str(member.id)] = {}
-            warn_data[str(member.id)]["warn"] = {}
-            warn_data[str(member.id)]["warn"][str(currenttime)] = f"{reason}, by <@{ctx.author.id}>"
-
-        with open(f'data/guild_data/{guild_id}/admin.json', 'w') as s:
-            json.dump(warn_data, s, indent=4)
-
-        with open(f'data/guild_data/{guild_id}/admin.json', 'r') as f:
-            warn_data = json.load(f)
-
-        count = len(warn_data[str(member.id)]["warn"])
+        cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id)})
+        count = 0
+        for document in await cursor.to_list(length=100):
+            count += 1
 
         try:
             if count == 1:
@@ -86,11 +67,14 @@ class warning(commands.Cog):
         except:
             await ctx.send(get_lan(ctx.author.id, 'warning_error'))
 
-        await ctx.send(get_lan(ctx.author.id, 'warning_data').format(member=member.mention, reason=reason, num=str(currenttime), count=count))
+        await ctx.send(
+            get_lan(ctx.author.id, 'warning_data').format(member=member.mention, reason=reason, num=str(currenttime),
+                                                          count=count))
 
     @warning.error
     async def 경고_error(self, ctx, error):
-        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'), description=get_lan(ctx.author.id, 'warning_error_2'), color=0xe74c3c)
+        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'),
+                              description=get_lan(ctx.author.id, 'warning_error_2'), color=0xe74c3c)
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(embed=embed)
         if isinstance(error, commands.MemberNotFound):
@@ -98,35 +82,18 @@ class warning(commands.Cog):
 
     @commands.command(name="누적경고", aliases=["warcount", "warc", "warningcount"])
     async def warningcount(self, ctx, member: discord.Member = None):
-        try:
-            guild_id = str(ctx.message.guild.id)
-            member = ctx.author if not member else member
+        guild_id = str(ctx.message.guild.id)
+        member = ctx.author if not member else member
+        cases = []
+        cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id)})
+        for document in await cursor.to_list(length=100):
+            cases.append(document["time"])
+        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning_ac'),
+                              description=get_lan(ctx.author.id, 'warning_ac'.format(member=member)),
+                              colour=discord.Color.red())
+        embed.add_field(name=get_lan(ctx.author.id, 'warning_number'), value=f'{cases}')
 
-            with open(f'data/guild_data/{guild_id}/admin.json', 'r') as f:
-                warn_data = json.load(f)
-
-            global cases
-
-            try:
-                cases = str(warn_data[str(member.id)]["warn"].keys())
-            except KeyError:
-                cases = None
-            except FileNotFoundError:
-                await ctx.send(get_lan(ctx.author.id, 'warning_none'))
-
-            if cases is None:
-                cases = get_lan(ctx.author.id, 'warning_case_none')
-
-            else:
-                cases = cases.lstrip('dict_keys([')
-                cases = cases.rstrip('])')
-
-            embed = discord.Embed(title=get_lan(ctx.author.id, 'warning_ac'), description=get_lan(ctx.author.id, 'warning_ac'.format(member=member)), colour=discord.Color.red())
-            embed.add_field(name=get_lan(ctx.author.id, 'warning_number'), value=f'{cases}')
-
-            await ctx.send(embed=embed)
-        except:
-            await ctx.send(get_lan(ctx.author.id, 'warning_case_error'))
+        await ctx.send(embed=embed)
 
     @warningcount.error
     async def warcount_error(self, ctx, error):
@@ -135,18 +102,13 @@ class warning(commands.Cog):
 
     @commands.command(name="경고정보", aliases=['warinfo', 'warninginfo', 'warin'])
     async def warninginfo(self, ctx, member: discord.Member, num):
-        global case
         guild_id = str(ctx.message.guild.id)
-        with open(f'data/guild_data/{guild_id}/admin.json', 'r') as f:
-            warn_data = json.load(f)
+        cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id), "time": num})
+        for document in await cursor.to_list(length=100):
+            case = document["reason"]
 
-        try:
-            case = warn_data[str(member.id)]["warn"][str(num)]
-        except KeyError:
-            await ctx.send(get_lan(ctx.author.id, 'warning_case_none'))
-            return
-
-        embed = discord.Embed(title=get_lan(ctx.author.id, 'warninginfo_detail'), description=get_lan(ctx.author.id, 'warning_ac_de'.format(member=member)), colour=discord.Color.red())
+        embed = discord.Embed(title=get_lan(ctx.author.id, 'warninginfo_detail'), description=f"{member.mention}",
+                              colour=discord.Color.red())
         embed.add_field(name=get_lan(ctx.author.id, 'warning_number'), value=f'{num}')
         embed.add_field(name=get_lan(ctx.author.id, 'warning_detail'), value=f'{case}', inline=False)
 
@@ -154,7 +116,8 @@ class warning(commands.Cog):
 
     @warninginfo.error
     async def warninginfo_error(self, ctx, error):
-        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'), description=get_lan(ctx.author.id, 'warning_info_error'), colour=0x74c3c)
+        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'),
+                              description=get_lan(ctx.author.id, 'warning_info_error'), colour=0x74c3c)
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(embed=embed)
         if isinstance(error, commands.MemberNotFound):
@@ -164,10 +127,10 @@ class warning(commands.Cog):
     @commands.has_permissions(manage_channels=True)
     async def warningdel(self, ctx, member: discord.Member, num):
         guild_id = str(ctx.message.guild.id)
-
-        with open(f'data/guild_data/{guild_id}/admin.json', 'r') as f:
-            warn_data = json.load(f)
-        count = len(warn_data[str(member.id)]["warn"])
+        cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id)})
+        count = 0
+        for document in await cursor.to_list(length=100):
+            count += 1
         try:
             if count == 1:
                 role = get(ctx.guild.roles, name=get_lan(ctx.author.id, 'warning_num_1'))
@@ -202,27 +165,25 @@ class warning(commands.Cog):
         except:
             pass
 
-        try:
-            del warn_data[str(member.id)]["warn"][str(num)]
-            with open(f'data/guild_data/{guild_id}/admin.json', 'w') as s:
-                json.dump(warn_data, s, indent=4)
+        cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id), "time": num})
+        count = 0
+        for document in await cursor.to_list(length=100):
+            count += 1
+
+        if count == 1:
+            await db.warning.delete_one({"guild_id": guild_id, "user_id": str(member.id), "time": num})
             await ctx.send(get_lan(ctx.author.id, 'wardel_msg'))
-        except KeyError:
+        elif count == 0:
             await ctx.send(get_lan(ctx.author.id, 'warning_none'))
-        except FileNotFoundError:
-            await ctx.send(get_lan(ctx.author.id, 'warning_none'))
-        except MissingRequiredArgument:
-            await ctx.send(get_lan(ctx.author.id, 'wardel_mssarg'))
 
     @warningdel.error
     async def warningdel_error(self, ctx, error):
-        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'), description=get_lan(ctx.author.id, 'wardel_mssarg'), color=0xe74c3c)
+        embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'),
+                              description=get_lan(ctx.author.id, 'wardel_mssarg'), color=0xe74c3c)
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(embed=embed)
         if isinstance(error, commands.MemberNotFound):
             await ctx.send(get_lan(ctx.author.id, 'member_none'))
-
-
 
 
 def setup(bot):
