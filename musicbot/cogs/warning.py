@@ -129,7 +129,7 @@ class warning(commands.Cog):
         guild_id = str(ctx.message.guild.id)
         cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id)})
         count = 0
-        for document in await cursor.to_list(length=100):
+        for doc in await cursor.to_list(length=100):
             count += 1
         try:
             if count == 1:
@@ -167,7 +167,7 @@ class warning(commands.Cog):
 
         cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id), "time": num})
         count = 0
-        for document in await cursor.to_list(length=100):
+        for doc in await cursor.to_list(length=100):
             count += 1
 
         if count == 1:
