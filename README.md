@@ -1,6 +1,6 @@
-#AU DISCORD BOT
+# AU DISCORD BOT
 
-##명령어
+명령어
 --
 !도움 일반
 - 기본적인 명령어들을 보내드려요!
