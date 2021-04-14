@@ -91,6 +91,7 @@ class lol_stats(commands.Cog):
             embed.add_field(name="솔로랭크 : 언랭크", value="언랭크", inline=False)
             embed.add_field(name="자유랭크 : 언랭크", value="언랭크", inline=False)
             embed.set_thumbnail(url='https:' + RankMedal[0]['src'])
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(playerNickname + "님의 전적", embed=embed)
 
         # 솔로랭크 기록이 없는경우
@@ -114,6 +115,7 @@ class lol_stats(commands.Cog):
                             value="KDA : " + mostUsedChampionKDA + " / " + " 승률 : " + mostUsedChampionWinRate,
                             inline=False)
             embed.set_thumbnail(url='https:' + RankMedal[1]['src'])
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(playerNickname + "님의 전적", embed=embed)
 
         # 자유랭크 기록이 없는경우
@@ -137,6 +139,7 @@ class lol_stats(commands.Cog):
                             value="KDA : " + mostUsedChampionKDA + " / " + "승률 : " + mostUsedChampionWinRate,
                             inline=False)
             embed.set_thumbnail(url='https:' + RankMedal[0]['src'])
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(playerNickname + "님의 전적", embed=embed)
         # 두가지 유형의 랭크 모두 완료된사람
         else:
@@ -275,6 +278,7 @@ class lol_stats(commands.Cog):
             embed.add_field(name="모스트 챔피언 : " + mostUsedChampion,
                             value="KDA : " + mostUsedChampionKDA + " / " + " 승률 : " + mostUsedChampionWinRate,
                             inline=False)
+            embed.set_footer(text="audiscordbot.xyz")
             if cmpTier == 0:
                 embed.set_thumbnail(url='https:' + RankMedal[0]['src'])
             elif cmpTier == 1:
@@ -292,13 +296,16 @@ class lol_stats(commands.Cog):
     async def lolstats_error(self, ctx, error):
         if isinstance(error, commands.CheckFailure):
             embed = discord.Embed(title="롤 전적", description="닉네임을 입력해주세요", color=0xe74c3c)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
         elif AttributeError(error):
             embed = discord.Embed(title="존재하지 않는 소환사", description="", color=0x5CD1E5)
+            embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name="해당 닉네임의 소환사가 존재하지 않습니다.", value="소환사 이름을 확인해주세요", inline=False)
             await ctx.send(embed=embed)
         elif isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(title="롤 전적", description="닉네임을 입력해주세요", color=0xe74c3c)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
 
 

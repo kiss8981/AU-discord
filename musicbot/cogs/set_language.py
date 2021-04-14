@@ -20,10 +20,12 @@ class Language (commands.Cog) :
                     files = files + file.replace(".json", "") + "\n"
 
             embed=discord.Embed(title=get_lan(ctx.author.id, "set_language_pack_list"), description=files, color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
 
         if not os.path.exists(f"musicbot/languages/{lang}.json"):
             embed=discord.Embed(title=get_lan(ctx.author.id, "set_language_pack_not_exist"), color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
 
         conn = sqlite3.connect("userdata.db", isolation_level=None)
@@ -36,10 +38,12 @@ class Language (commands.Cog) :
             # add user data
             c.execute(f"INSERT INTO userdata VALUES({ctx.author.id}, '{lang}')")
             embed=discord.Embed(title=get_lan(ctx.author.id, "set_language_complete"), description=f"{lang}", color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
         else:
             # modify user data
             c.execute("UPDATE userdata SET language=:language WHERE id=:id", {"language": lang, 'id': ctx.author.id})
             embed=discord.Embed(title=get_lan(ctx.author.id, "set_language_complete"), description=f"{a[1]} --> {lang}", color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
         conn.close()
         await ctx.send(embed=embed)
 

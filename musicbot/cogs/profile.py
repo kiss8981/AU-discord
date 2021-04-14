@@ -14,6 +14,7 @@ class profile(commands.Cog):
         member = ctx.author if not member else member
         embed = discord.Embed(title=get_lan(ctx.author.id, "profile"), description= f"{member}{get_lan(ctx.author.id, 'profile-nim')}")
         embed.set_image(url=member.avatar_url)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
 

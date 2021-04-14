@@ -26,8 +26,10 @@ class Chart (commands.Cog) :
         for s in songs:
             song.append(s.find('span', {"class": "checkEllipsis"}).text)
         embed=discord.Embed(title=get_lan(ctx.author.id, "chart_melon_chart"), color=color_code)
+        embed.set_footer(text="audiscordbot.xyz")
         for i in range(0, 10):
             embed.add_field(name=str(i+1) + ".", value = f"{song[i]} - {title[i]}", inline=False)
+
         await ctx.send(embed=embed)
 
     @commands.command(name = '빌보드', aliases = ['빌보드차트', 'billboardchart'])
@@ -45,6 +47,7 @@ class Chart (commands.Cog) :
         for s in songs:
             song.append(s.get_text())
         embed=discord.Embed(title=get_lan(ctx.author.id, "chart_billboard_chart"), color=color_code)
+        embed.set_footer(text="audiscordbot.xyz")
         for i in range(0, 10):
             embed.add_field(name=str(i+1) + ".", value = f"{song[i]} - {title[i]}", inline=False)
         await ctx.send(embed=embed)

@@ -12,9 +12,11 @@ class Ping (commands.Cog) :
         latancy = self.bot.latency
         before = time.monotonic()
         embed=discord.Embed(title="**Ping**", description=f'ping_pong: Pong! WebSocket Ping {round(latancy * 1000)}ms\n:ping_pong: Pong! Measuring...', color=color_code)
+        embed.set_footer(text="audiscordbot.xyz")
         message = await ctx.send(embed=embed)
         ping = (time.monotonic() - before) * 1000
         embed=discord.Embed(title="**Ping**", description=f':ping_pong: Pong! WebSocket Ping {round(latancy * 1000)}ms\n:ping_pong: Pong! Message Ping {int(ping)}ms', color=color_code)
+        embed.set_footer(text="audiscordbot.xyz")
         await message.edit(embed=embed)
 
 def setup (bot) :

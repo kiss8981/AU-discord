@@ -75,6 +75,7 @@ class warning(commands.Cog):
     async def 경고_error(self, ctx, error):
         embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'),
                               description=get_lan(ctx.author.id, 'warning_error_2'), color=0xe74c3c)
+        embed.set_footer(text="audiscordbot.xyz")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(embed=embed)
         if isinstance(error, commands.MemberNotFound):
@@ -92,6 +93,7 @@ class warning(commands.Cog):
                               description=get_lan(ctx.author.id, 'warning_ac'.format(member=member)),
                               colour=discord.Color.red())
         embed.add_field(name=get_lan(ctx.author.id, 'warning_number'), value=f'{cases}')
+        embed.set_footer(text="audiscordbot.xyz")
 
         await ctx.send(embed=embed)
 
@@ -111,6 +113,7 @@ class warning(commands.Cog):
                               colour=discord.Color.red())
         embed.add_field(name=get_lan(ctx.author.id, 'warning_number'), value=f'{num}')
         embed.add_field(name=get_lan(ctx.author.id, 'warning_detail'), value=f'{case}', inline=False)
+        embed.set_footer(text="audiscordbot.xyz")
 
         await ctx.send(embed=embed)
 
@@ -118,6 +121,7 @@ class warning(commands.Cog):
     async def warninginfo_error(self, ctx, error):
         embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'),
                               description=get_lan(ctx.author.id, 'warning_info_error'), colour=0x74c3c)
+        embed.set_footer(text="audiscordbot.xyz")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(embed=embed)
         if isinstance(error, commands.MemberNotFound):
@@ -129,7 +133,7 @@ class warning(commands.Cog):
         guild_id = str(ctx.message.guild.id)
         cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id)})
         count = 0
-        for doc in await cursor.to_list(length=100):
+        for document in await cursor.to_list(length=100):
             count += 1
         try:
             if count == 1:
@@ -167,7 +171,7 @@ class warning(commands.Cog):
 
         cursor = db.warning.find({"guild_id": guild_id, "user_id": str(member.id), "time": num})
         count = 0
-        for doc in await cursor.to_list(length=100):
+        for document in await cursor.to_list(length=100):
             count += 1
 
         if count == 1:
@@ -180,6 +184,7 @@ class warning(commands.Cog):
     async def warningdel_error(self, ctx, error):
         embed = discord.Embed(title=get_lan(ctx.author.id, 'warning'),
                               description=get_lan(ctx.author.id, 'wardel_mssarg'), color=0xe74c3c)
+        embed.set_footer(text="audiscordbot.xyz")
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(embed=embed)
         if isinstance(error, commands.MemberNotFound):

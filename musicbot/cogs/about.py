@@ -26,6 +26,7 @@ class About (commands.Cog) :
         embed.add_field(name=get_lan(ctx.author.id, "about_guild_count"), value=len(self.bot.guilds), inline=True)
         embed.add_field(name=get_lan(ctx.author.id, "about_members_count"), value=len(self.bot.users), inline=True)
         embed.add_field(name=get_lan(ctx.author.id, "about_number_of_music_playback_servers"), value=player_server_count, inline=True)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
 def setup (bot) :

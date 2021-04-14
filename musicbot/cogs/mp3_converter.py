@@ -18,7 +18,8 @@ class mp3convert(commands.Cog):
     @commands.command(name="변환", aliases=["mp3변환", "노래다운", "convert"])
     async def convert(self, ctx, *, arg):
         embedVar = discord.Embed(title="MP3변환", description="변환중...", color=0x0066ff)
-        await ctx.send(embed=embedVar)
+        embedVar.set_footer(text="audiscordbot.xyz")
+        msg = await ctx.send(embed=embedVar)
         url = re.findall(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+', arg)
         if url:
             if len(url) == 1:
@@ -32,16 +33,18 @@ class mp3convert(commands.Cog):
                         file_size = int(file_size)
                         if file_size > 8000000:
                             embedVar = discord.Embed(title="7분 미만의 노래만 다운로드 가능합니다", color=0x0066ff)
-                            await ctx.send(embed=embedVar)
+                            embedVar.set_footer(text="audiscordbot.xyz")
+                            await msg.edit(content="", embed=embedVar)
                             os.remove(files)
                         else:
                             await ctx.send(file=discord.File(files))
                             os.remove(files)
                 else:
-                    await ctx.send(embed=embedVar)
+                    await ctx.send(content="", embed=embedVar)
             else:
                 embedVar = discord.Embed(title="MP3변환", description="여러 개의 링크를 보낸 거 같습니다. 하나만 보내주세요", color=0x0066ff)
-                await ctx.send(embed=embedVar)
+                embedVar.set_footer(text="audiscordbot.xyz")
+                await msg.edit(content="", embed=embedVar)
         elif not url:
             videosSearch = VideosSearch(f'{arg}', limit=1)
             data1 = videosSearch.result()
@@ -56,23 +59,27 @@ class mp3convert(commands.Cog):
                 file_size = int(file_size)
                 if file_size > 8000000:
                     embe = discord.Embed(title="MP3변환", description="7분 미만의 노래만 다운로드 가능합니다.", color=0x0066ff)
-                    await ctx.send(embed=embe)
+                    embe.set_footer(text="audiscordbot.xyz")
+                    await msg.edit(content="", embed=embe)
                     os.remove(files)
                 else:
                     embe = discord.Embed(title="MP3변환", description="변환완료...", color=0x0066ff)
-                    await ctx.send(embed=embe)
+                    embe.set_footer(text="audiscordbot.xyz")
+                    await msg.edit(content="", embed=embe)
                     await ctx.send(new_url)
                     await ctx.send(file=discord.File(files))
                     os.remove(files)
         else:
             embe = discord.Embed(title="MP3변환", description="명령어 방식이 잘못되었습니다", color=0x0066ff)
-            await ctx.send(embed=embe)
+            embe.set_footer(text="audiscordbot.xyz")
+            await msg.edit(content="", embed=embe)
 
     @convert.error
     async def convert_error(self, ctx, error):
         embed = discord.Embed(title="MP3변환", description="!변환 <제목> or <url>", color=0xe74c3c)
+        embed.set_footer(text="audiscordbot.xyz")
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
 
 
 def setup(bot: commands.Bot):

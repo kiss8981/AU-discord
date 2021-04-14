@@ -15,6 +15,7 @@ class Help (commands.Cog) :
             arg = arg.upper()
         if arg == "GENERAL" or arg == "일반":
             embed=discord.Embed(title=get_lan(ctx.author.id, "help_general"), description="", color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
 
             if "about" in EXTENSIONS:
                 embed.add_field(name=get_lan(ctx.author.id, "help_general_about_command").format(commandInt=commandInt),      value=get_lan(ctx.author.id, "help_general_about_info"), inline=True)
@@ -44,6 +45,7 @@ class Help (commands.Cog) :
             if "school" in EXTENSIONS:
                 embed = discord.Embed(title=get_lan(ctx.author.id, "help_school"),
                                       description=get_lan(ctx.author.id, "help_school_description"), color=color_code)
+                embed.set_footer(text="audiscordbot.xyz")
                 embed.add_field(name=get_lan(ctx.author.id, "help_school__command").format(commandInt=commandInt),
                                 value=get_lan(ctx.author.id, "help_school_info_command").format(commandInt=commandInt),
                                 inline=False)
@@ -55,6 +57,7 @@ class Help (commands.Cog) :
         elif arg == "UTILS" or arg == "유틸":
             embed = discord.Embed(title=get_lan(ctx.author.id, "help_utils"),
                                   description=get_lan(ctx.author.id, "help_utils_description"), color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name=get_lan(ctx.author.id, "help_utils_convert_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_utils_convert_info").format(commandInt=commandInt),
                             inline=False)
@@ -81,6 +84,7 @@ class Help (commands.Cog) :
         elif arg == "WARNING" or arg == "경고":
             embed = discord.Embed(title=get_lan(ctx.author.id, "help_warning"),
                                   description=get_lan(ctx.author.id, "help_warning_description"), color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name=get_lan(ctx.author.id, "help_warning_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_warning_info").format(commandInt=commandInt),
                             inline=False)
@@ -98,6 +102,7 @@ class Help (commands.Cog) :
         elif arg == "STATS" or arg == "전적":
             embed = discord.Embed(title=get_lan(ctx.author.id, "help_stats"),
                                   description=get_lan(ctx.author.id, "help_stats_description"), color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name=get_lan(ctx.author.id, "help_lolstats_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_lolstats_info").format(commandInt=commandInt),
                             inline=False)
@@ -106,6 +111,7 @@ class Help (commands.Cog) :
         elif arg == "MUSIC" or arg == "음악":
             if "music" in EXTENSIONS:
                 embed=discord.Embed(title=get_lan(ctx.author.id, "help_music"), description=get_lan(ctx.author.id, "help_music_description"), color=color_code)
+                embed.set_footer(text="audiscordbot.xyz")
                 embed.add_field(name=get_lan(ctx.author.id, "help_music_connect_command").format(commandInt=commandInt),   value=get_lan(ctx.author.id, "help_music_connect_info").format(commandInt=commandInt), inline=False)
                 embed.add_field(name=get_lan(ctx.author.id, "help_music_play_command").format(commandInt=commandInt),      value=get_lan(ctx.author.id, "help_music_play_info").format(commandInt=commandInt), inline=False)
                 embed.add_field(name=get_lan(ctx.author.id, "help_music_stop_command").format(commandInt=commandInt),      value=get_lan(ctx.author.id, "help_music_stop_info").format(commandInt=commandInt), inline=False)
@@ -125,6 +131,7 @@ class Help (commands.Cog) :
         elif arg == "DEV" or arg == "개발" or arg == "개발자":
             if ctx.author.id in OWNERS:
                 embed=discord.Embed(title=get_lan(ctx.author.id, "help_dev"), description=get_lan(ctx.author.id, "help_dev_description"), color=color_code)
+                embed.set_footer(text="audiscordbot.xyz")
                 embed.add_field(name=get_lan(ctx.author.id, "help_dev_serverlist_command").format(commandInt=commandInt),   value=get_lan(ctx.author.id, "help_dev_serverlist_info"), inline=False)
                 embed.add_field(name=get_lan(ctx.author.id, "help_dev_modules_command").format(commandInt=commandInt),      value=get_lan(ctx.author.id, "help_dev_modules_command"), inline=False)
                 embed.add_field(name=get_lan(ctx.author.id, "help_dev_load_command").format(commandInt=commandInt),         value=get_lan(ctx.author.id, "help_dev_load_command"), inline=False)
@@ -136,6 +143,7 @@ class Help (commands.Cog) :
 
         else:
             embed=discord.Embed(title=get_lan(ctx.author.id, "help"), description=get_lan(ctx.author.id, "help_info").format(bot_name=self.bot.user.name), color=color_code)
+            embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name=get_lan(ctx.author.id, "help_general_command").format(commandInt=commandInt), value=get_lan(ctx.author.id, "help_general_command_info"), inline=False)
 
             if "music" in EXTENSIONS:

@@ -17,7 +17,7 @@ class randomteam(commands.Cog):
         y = len(players) / 2
         team1 = ', '.join(players[:int(y)])
         team2 = ', '.join(players[int(y):])
-        msg = f"```1팀:\n{team1}\n\n2팀:\n{team2}```"
+        msg = f"```1팀:\n{team1}\n\n2팀:\n{team2}\n\naudiscordbot.xyz```"
         await ctx.send(msg)
 
     @commands.command(name = '팀섞음성', aliases = ['randomvoice'])
@@ -35,7 +35,7 @@ class randomteam(commands.Cog):
             y = len(players) / 2
             team1 = ', '.join(players[:int(y)])
             team2 = ', '.join(players[int(y):])
-            msg = f"```1팀:\n{team1}\n\n2팀:\n{team2}```"
+            msg = f"```1팀:\n{team1}\n\n2팀:\n{team2}\n\naudiscordbot.xyz```"
             await ctx.send(msg)
         except AttributeError:
             await ctx.send("음성채널에 입장 해주세요")

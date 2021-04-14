@@ -71,6 +71,7 @@ class Music(commands.Cog):
     async def cog_command_error(self, ctx, error):
         if isinstance(error, commands.CommandInvokeError):
             embed=discord.Embed(title=error.original, description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
 
     async def track_hook(self, event):
@@ -88,8 +89,10 @@ class Music(commands.Cog):
         if not player.is_connected:
             #await self.connect_to(ctx.guild.id, ctx.author.voice.channel.id)
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_connect_voice_channel"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         embed=discord.Embed(title=get_lan(ctx.author.id, "music_already_connected_voice_channel"), description='', color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         return await ctx.send(embed=embed)
 
     @commands.command(aliases=['p', '재생', 'ㅔ', 'add'])
@@ -110,11 +113,13 @@ class Music(commands.Cog):
                     nofind += 1
                 elif nofind == 3:
                     embed=discord.Embed(title=get_lan(ctx.author.id, "music_can_not_find_anything"), description='', color=self.normal_color)
+                    embed.set_footer(text="audiscordbot.xyz")
                     return await ctx.send(embed=embed)
             else:
                 break
 
         embed = discord.Embed(color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
 
         if results['loadType'] == 'PLAYLIST_LOADED':
             tracks = results['tracks']
@@ -153,6 +158,7 @@ class Music(commands.Cog):
         # 재생목록 총 개수
         if arg == "-a":
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_len_list"), description=get_lan(ctx.author.id, "music_len_list").format(files_len=len(files)), color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
 
         if arg is None:
@@ -164,6 +170,7 @@ class Music(commands.Cog):
         # 리스트 재생
         except ValueError:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_list_finding"), color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             playmsg = await ctx.send(embed=embed)
 
             try:
@@ -173,6 +180,7 @@ class Music(commands.Cog):
 
             except Exception:
                 embed=discord.Embed(title=get_lan(ctx.author.id, "music_list_can_not_find"), description=arg, color=self.normal_color)
+                embed.set_footer(text="audiscordbot.xyz")
                 return await playmsg.edit(embed=embed)
 
             player = self.bot.lavalink.player_manager.get(ctx.guild.id)
@@ -193,6 +201,7 @@ class Music(commands.Cog):
                         loading_dot = loading_dot + "."
 
                     embed=discord.Embed(title=get_lan(ctx.author.id, "music_adding_music").format(loading_dot=loading_dot), description=music, color=self.normal_color)
+                    embed.set_footer(text="audiscordbot.xyz")
                     await playmsg.edit(embed=embed)
 
                     query = music.strip('<>')
@@ -228,6 +237,7 @@ class Music(commands.Cog):
             embed.add_field(name=get_lan(ctx.author.id, "music_played_music"), value = playmusic, inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "music_can_not_find_music"), value = passmusic, inline=False)
             embed.set_thumbnail(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
+            embed.set_footer(text="audiscordbot.xyz")
             await playmsg.edit(embed=embed)
             if not player.is_playing:
                 await player.play()
@@ -237,6 +247,7 @@ class Music(commands.Cog):
             # 총 리스트 수가 10 이하일 경우
             if len(file) <= 10:
                 embed=discord.Embed(title=get_lan(ctx.author.id, "music_playlist_list"), description="\n".join(file), color=color_code)
+                embed.set_footer(text="audiscordbot.xyz")
                 return await playmsg.edit(embed=embed)
 
             # 총 페이지수 계산
@@ -255,6 +266,7 @@ class Music(commands.Cog):
                         break
                 embed1 = discord.Embed(title=get_lan(ctx.author.id, "music_playlist_list"), description=filelist, color=color_code)
                 embed1.set_footer(text=f"{get_lan(ctx.author.id, 'music_page')} {str(i)}/{str(allpage)}")
+                embed1.set_footer(text="audiscordbot.xyz")
                 if not chack:
                     msg = await ctx.send(embed=embed1)
                     chack = True
@@ -270,6 +282,7 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
 
         embed=discord.Embed(title=get_lan(ctx.author.id, "music_parsing_melon"), color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         melonplaymsg = await ctx.send(embed=embed)
 
         data = await getReqTEXT (self.melon_url, self.header)
@@ -296,6 +309,7 @@ class Music(commands.Cog):
                 loading_dot = loading_dot + "."
             musicname = str(f'{song[i]} {title[i]}')
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_adding_music").format(loading_dot=loading_dot), description=musicname, color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await melonplaymsg.edit(embed=embed)
             query = musicname.strip('<>')
             if not url_rx.match(query):
@@ -330,6 +344,7 @@ class Music(commands.Cog):
         embed.add_field(name=get_lan(ctx.author.id, "music_played_music"), value = playmusic, inline=False)
         embed.add_field(name=get_lan(ctx.author.id, "music_can_not_find_music"), value = passmusic, inline=False)
         embed.set_thumbnail(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
+        embed.set_footer(text="audiscordbot.xyz")
         await melonplaymsg.edit(embed=embed)
         if not player.is_playing:
             await player.play()
@@ -341,6 +356,7 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
 
         embed=discord.Embed(title=get_lan(ctx.author.id, "misic_parsing_billboard"), color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         melonplaymsg = await ctx.send(embed=embed)
 
         data = await getReqTEXT (self.billboard_url, self.header)
@@ -369,6 +385,7 @@ class Music(commands.Cog):
                 loading_dot = loading_dot + "."
             musicname = str(f'{song[i]} {title[i]}')
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_adding_music").format(loading_dot=loading_dot), description=musicname, color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await melonplaymsg.edit(embed=embed)
             query = musicname.strip('<>')
             if not url_rx.match(query):
@@ -403,6 +420,7 @@ class Music(commands.Cog):
         embed.add_field(name=get_lan(ctx.author.id, "music_played_music"), value = playmusic, inline=False)
         embed.add_field(name=get_lan(ctx.author.id, "music_can_not_find_music"), value = passmusic, inline=False)
         embed.set_thumbnail(url="http://img.youtube.com/vi/%s/0.jpg" %(info['identifier']))
+        embed.set_footer(text="audiscordbot.xyz")
         await melonplaymsg.edit(embed=embed)
         if not player.is_playing:
             await player.play()
@@ -413,6 +431,7 @@ class Music(commands.Cog):
         track_time = player.position + (seconds * 1000)
         await player.seek(track_time)
         embed=discord.Embed(title=get_lan(ctx.author.id, "music_seek_move_to").format(move_time=lavalink.utils.format_time(track_time)), description='', color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['forceskip', '스킵', 's', 'ㄴ'])
@@ -420,9 +439,11 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_playing:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_not_playing"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         if arg is None:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_skip_next"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
             await player.skip()
         else:
@@ -432,6 +453,7 @@ class Music(commands.Cog):
                     break
                 await player.skip()
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_skip_many_music").format(music_count=arg), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
 
     @commands.command(aliases=['np', 'n', 'playing', '현재재생중', 'ㅜ', 'ㅞ', 'ㅜㅔ'])
@@ -439,6 +461,7 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.current:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_no_playing_music"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
             return
         position = lavalink.utils.format_time(player.position)
@@ -450,6 +473,7 @@ class Music(commands.Cog):
         embed = discord.Embed(color=self.normal_color,
                               title=get_lan(ctx.author.id, "music_now_playing"), description=song)
         embed.set_thumbnail(url="%s/0.jpg"%player.current.uri.replace('https://www.youtube.com/watch?v=', 'http://img.youtube.com/vi/'))
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['q', '큐', 'ㅂ'])
@@ -457,6 +481,7 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.queue:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_no_music_in_the_playlist"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
             return
         items_per_page = 10
@@ -469,6 +494,7 @@ class Music(commands.Cog):
         embed = discord.Embed(colour=self.normal_color,
                               description=get_lan(ctx.author.id, "music_q").format(lenQ=len(player.queue), queue_list=queue_list))
         embed.set_footer(text=f'{get_lan(ctx.author.id, "music_page")} {page}/{pages}')
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['resume', '일시정지', '일시중지', '재개'])
@@ -476,14 +502,17 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_playing:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_not_playing"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         if player.paused:
             await player.set_pause(False)
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_resume"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
         else:
             await player.set_pause(True)
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_pause"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
 
     @commands.command(aliases=['vol', 'v', '볼륨', '음량', 'ㅍ'])
@@ -492,13 +521,16 @@ class Music(commands.Cog):
         if volume is None:
             volicon = await volumeicon(player.volume)
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_pause").format(volicon=volicon, volume=player.volume), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         if volume > 1000 or volume < 1:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_input_over_vol"), description=get_lan(ctx.author.id, "music_default_vol"), color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         await player.set_volume(volume)
         volicon = await volumeicon(player.volume)
         embed=discord.Embed(title=get_lan(ctx.author.id, "music_set_vol").format(volume=player.volume), description='', color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['셔플'])
@@ -506,12 +538,15 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_playing:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_not_playing"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         player.shuffle = not player.shuffle
         if player.shuffle:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_shuffle_on"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
         else:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_shuffle_off"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['loop', 'l', '반복', 'ㅣ'])
@@ -519,13 +554,16 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_playing:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_not_playing"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embed)
             return
         player.repeat = not player.repeat
         if player.repeat:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_repeat_on"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
         else:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_repeat_off"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['제거', 'rm'])
@@ -533,12 +571,15 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.queue:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_remove_no_wating_music"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         if index > len(player.queue) or index < 1:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_remove_input_over").format(last_queue=len(player.queue)), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         removed = player.queue.pop(index - 1)  # Account for 0-index.
         embed=discord.Embed(title=get_lan(ctx.author.id, "music_remove_form_playlist").format(remove_music=removed.title), description='', color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['유튜브', 'youtube'])
@@ -554,6 +595,7 @@ class Music(commands.Cog):
                     search_count += 1
                 else:
                     embed=discord.Embed(title=get_lan(ctx.author.id, "music_youtube_can_not_found"), description='', color=self.normal_color)
+                    embed.set_footer(text="audiscordbot.xyz")
                     return await ctx.send(embed=embed)
             break
         tracks = results['tracks'][:10]  # First 10 results
@@ -563,6 +605,7 @@ class Music(commands.Cog):
             track_uri = track['info']['uri']
             o += f'`{index}.` [{track_title}]({track_uri})\n'
         embed = discord.Embed(color=self.normal_color, title=get_lan(ctx.author.id, "music_youtube_result"), description=o)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['dc', '연결해제', '나가', 'ㅇㅊ', '중지', '정지', 'stop'])
@@ -570,15 +613,18 @@ class Music(commands.Cog):
         player = self.bot.lavalink.player_manager.get(ctx.guild.id)
         if not player.is_connected:
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_dc_not_connect_voice_channel"), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         if not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
             embed=discord.Embed(title=get_lan(ctx.author.id, "music_dc_not_connect_my_voice_channel").format(name=ctx.author.name), description='', color=self.normal_color)
+            embed.set_footer(text="audiscordbot.xyz")
             return await ctx.send(embed=embed)
         player.queue.clear()
         await player.stop()
         await self.connect_to(ctx.guild.id, None)
 
         embed=discord.Embed(title=get_lan(ctx.author.id, "music_dc_disconnected"), description='', color=self.normal_color)
+        embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
 
     async def ensure_voice(self, ctx):

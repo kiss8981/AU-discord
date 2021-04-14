@@ -30,10 +30,12 @@ class shortURL(commands.Cog):
             emb.add_field(name=get_lan(ctx.author.id, 'short_url_defalt'), value=f"**{arg}**", inline=False)
             emb.add_field(name=get_lan(ctx.author.id, 'short_url_convert'), value=f"**{returnurl}**", inline=False)
             emb.set_thumbnail(url=f"{returnurl}.qr")
+            emb.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=emb)
         else:
             print("Error Code:" + rescode)
             emb = discord.embeds.Embed(title=get_lan(ctx.author.id, 'short_url'), description=get_lan(ctx.author.id, 'short_url_error').format(rescode=rescode))
+            emb.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=emb)
 
 

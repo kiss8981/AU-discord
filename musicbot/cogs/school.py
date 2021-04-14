@@ -38,6 +38,7 @@ class school(commands.Cog):
                 date = 9
         embed = discord.Embed(title=f"{arg} 급식")
         embed.add_field(name=f"{date}일 급식", value=f"{date}일 급식을 찾는중입니다...")
+        embed.set_footer(text="audiscordbot.xyz")
         msg = await ctx.send(embed=embed)
         
         url = f'https://schoolmenukr.ml/code/api?q={arg}'
@@ -55,10 +56,12 @@ class school(commands.Cog):
                 menuall = '\n'.join(menu[:i+1])
             embed = discord.Embed(title=f"{school_name} 급식")
             embed.add_field(name=f"{date}일 급식", value=f"{menuall}\n")
+            embed.set_footer(text="audiscordbot.xyz")
             await msg.edit(content="", embed=embed)
         except UnboundLocalError:
             embed = discord.Embed(title=f"{school_name} 급식")
             embed.add_field(name=f"{date}일 급식", value=f"`{date}`일은 급식이 없습니다!")
+            embed.set_footer(text="audiscordbot.xyz")
             await msg.edit(content="", embed=embed)
 
 def setup(bot: commands.Bot):
