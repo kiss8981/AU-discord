@@ -1,3 +1,5 @@
+# AU DISCORD BOT
+
 명령어
 --
 !도움 일반
@@ -37,7 +39,7 @@
 * [PythonLavalink](https://github.com/fxrcha/PythonLavalink)
 * [EZPaginator](https://github.com/khk4912/EZPaginator)
 
-## How to install
+## 사용방법
 
 ### 컴퓨터로 사용하는 방법
 
