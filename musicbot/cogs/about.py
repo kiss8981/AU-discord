@@ -19,15 +19,52 @@ class About (commands.Cog) :
             except Exception:
                 pass
         current_shard_latency = ctx.bot.latencies[ctx.guild.shard_id]
-        latency = round(current_shard_latency[1] * 1000)
+        latency = round(current_shard_latency[ctx.guild.shard_id + 1] * 1000)
         for guild in self.bot.guilds:
             handling_guild = len([x for x in self.bot.guilds if x.shard_id == guild.shard_id])
-        embed=discord.Embed(title=get_lan(ctx.author.id, "about_bot_info"), description=(f"""Shard #{ctx.guild.shard_id} : Ping {latency}ms, Guild {handling_guild}"""), color=color_code)
+        shard_embed = ""
+        if ctx.channel.type != discord.ChannelType.private:
+            shard_embed += f"**서버의 Shard ID#{ctx.guild.shard_id} {latency}ms**\n"
+        shard_embed += "```"
+        for shard in self.bot.shards.values():
+            shard_embed += f"Shard#{shard.id} {int(shard.latency * 1000)}ms, Guild {handling_guild}\n"
+        shard_embed += "```\n"
+        shard_embed += "http://audiscordbot.xyz/status"
+
+
+
+
+
+        embed=discord.Embed(title=get_lan(ctx.author.id, "about_bot_info"), description=(shard_embed), color=color_code)
         embed.add_field(name=get_lan(ctx.author.id, "about_guild_count"), value=len(self.bot.guilds), inline=True)
         embed.add_field(name=get_lan(ctx.author.id, "about_members_count"), value=len(self.bot.users), inline=True)
         embed.add_field(name=get_lan(ctx.author.id, "about_number_of_music_playback_servers"), value=player_server_count, inline=True)
+        embed.add_field(name="**사용된 오픈소스**",
+                        value="[`롤 전적 오픈소스`](https://github.com/J-hoplin1/League-Of-Legend-Search-Bot)"
+                              "\n[`노래봇 오픈소스`](https://github.com/NewPremium/Toaru-kagaku-no-music-bot)"
+                              "\n[`자가진단 오픈소스`](https://github.com/331leo/hcskr_python)"
+                              "\n[`경고 오픈소스`](https://github.com/Team-EG/j-bot-old)")
         embed.set_footer(text="audiscordbot.xyz")
         await ctx.send(embed=embed)
+
+    @commands.command(aliases=["shard_status"])
+    async def shards(self, ctx):
+        """
+        Check the status of every shard the bot is hosting.
+        """
+        text = ""
+        if ctx.channel.type != discord.ChannelType.private:
+            text += f"`이 서버의 Shard ID: {ctx.guild.shard_id}`\n"
+        text += "```"
+        for shard in self.bot.shards.values():
+            text += f"Shard#{shard.id}: {int(shard.latency * 1000)}ms\n"
+        text += "```"
+
+        embed = discord.Embed(title="pong",
+                              description=text
+                              )
+        await ctx.send(embed=embed)
+
 
 def setup (bot) :
     bot.add_cog (About (bot))

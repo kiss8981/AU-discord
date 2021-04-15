@@ -34,10 +34,6 @@ class Help (commands.Cog) :
             if "set_language" in EXTENSIONS:
                 embed.add_field(name=f"`{commandInt}language`", value="Sends a list of available language packs.", inline=True)
                 embed.add_field(name=f"`{commandInt}language` [*language pack*]", value="Apply the language pack.", inline=True)
-            embed.add_field(name="**사용된 오픈소스**", value="[`롤 전적 오픈소스`](https://github.com/J-hoplin1/League-Of-Legend-Search-Bot)"
-                                                 "\n[`노래봇 오픈소스`](https://github.com/NewPremium/Toaru-kagaku-no-music-bot)"
-                                                 "\n[`자가진단 오픈소스`](https://github.com/331leo/hcskr_python)"
-                                                 "\n[`경고 오픈소스`](https://github.com/Team-EG/j-bot-old)")
 
             await ctx.send(embed=embed)
 
