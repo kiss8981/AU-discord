@@ -21,7 +21,8 @@ class Config(object):
                 'profile',
                 'autojindan',
                 'lol-stats',
-                'mp3_converter']
+                'mp3_converter',
+                'EmojiGenerator']
 
     OWNERS = [123456789] # 관리자의 아이디
     commandInt = "" # 명령인자
