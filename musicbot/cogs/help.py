@@ -69,6 +69,8 @@ class Help (commands.Cog) :
             embed.add_field(name=get_lan(ctx.author.id, "help_utils_profile_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_utils_profile_info").format(commandInt=commandInt),
                             inline=False)
+            embed.add_field(name="`!이모지생성` <들어갈 글자>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
+                            inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_general_melon_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_general_melon_info").format(commandInt=commandInt),
                             inline=False)
