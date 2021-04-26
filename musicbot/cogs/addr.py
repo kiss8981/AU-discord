@@ -25,7 +25,7 @@ class addr (commands.Cog) :
                 x = requests.get(url, headers=headers).json()['documents'][0]['x']
                 y = requests.get(url, headers=headers).json()['documents'][0]['y']
                 keyword = keyword.replace(" ", "%20")
-                maps = f"[링크](https://map.kakao.com/link/map/{keyword},{y},{x})"
+                maps = f"[길찾기](https://map.kakao.com/link/to/{keyword},{y},{x})"
                 if phone == "":
                     phone = "없음"
                 if address == "":
