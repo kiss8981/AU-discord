@@ -23,7 +23,8 @@ class Config(object):
                 'lol-stats',
                 'mp3_converter',
                 'EmojiGenerator',
-                'addr']
+                'addr',
+                'corona']
 
     OWNERS = [123456789] # 관리자의 아이디
     commandInt = "" # 명령인자
