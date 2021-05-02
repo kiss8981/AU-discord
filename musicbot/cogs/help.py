@@ -71,6 +71,8 @@ class Help (commands.Cog) :
                             inline=False)
             embed.add_field(name="`!이모지생성` <들어갈 글자>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
                             inline=False)
+            embed.add_field(name="`!등록` <주문번호>", value=">>> 상점에서 구매한 포인트를 추가해줍니다",
+                            inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_general_melon_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_general_melon_info").format(commandInt=commandInt),
                             inline=False)

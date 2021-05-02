@@ -24,7 +24,8 @@ class Config(object):
                 'mp3_converter',
                 'EmojiGenerator',
                 'addr',
-                'corona']
+                'corona',
+                'aucoin']
 
     OWNERS = [123456789] # 관리자의 아이디
     commandInt = "" # 명령인자
