@@ -63,6 +63,30 @@ class addcoin(commands.Cog):
             embed.set_footer(text="shop.audiscordbot.xyz")
             await ctx.send(embed=embed)
 
+    @commands.command(name="보유")
+    async def infocoin(self, ctx):
+        try:
+            user_id = str(ctx.message.author.id)
+            cursor2 = db.AUpoint.find({"user_id": user_id})
+            for document in await cursor2.to_list(length=100):
+                useramount = document["point"]
+            embed = discord.embeds.Embed(title="AU Point", description="정보", color=0x88FF00)
+            embed.add_field(name="현제 보유중인 코인", value=f"{useramount}AU")
+            embed.set_footer(text="shop.audiscordbot.xyz")
+            await ctx.send(embed=embed)
+        except UnboundLocalError:
+            embed = discord.embeds.Embed(title="AU Point", description="정보", color=0x88FF00)
+            embed.add_field(name="현제 보유중인 코인", value=f"0AU")
+            embed.set_footer(text="shop.audiscordbot.xyz")
+            await ctx.send(embed=embed)
+        except Exception as e:
+            embed = discord.embeds.Embed(title="AU Point", description="정보", color=0x88FF00)
+            embed.add_field(name="에러", value=f"{e}")
+            embed.set_footer(text="shop.audiscordbot.xyz")
+            await ctx.send(embed=embed)
+
+
+
 def setup(bot):
     bot.add_cog(addcoin(bot))
-    LOGGER.info('Owners Loaded!')
+    LOGGER.info('addcoin Loaded!')
