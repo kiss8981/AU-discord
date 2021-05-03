@@ -37,6 +37,17 @@ class Help (commands.Cog) :
 
             await ctx.send(embed=embed)
 
+        elif arg == "SHOP" or arg == "상점":
+            embed = discord.Embed(title="상점 명령어", description="", color=color_code)
+            embed.add_field(name="`!상점`", value=">>> 상점 관련 명령어들을 보내드려요!", inline=False)
+            embed.add_field(name="`!등록` <주문번호>", value=">>> 상점에서 구매한 포인트를 추가해줍니다",
+                            inline=False)
+            embed.add_field(name="`!보유`", value=">>> 보유하신 포인트를 알려줘요!",
+                            inline=False)
+            embed.add_field(name="`!상점 고음질변환`", value=">>> 고음질변환 아이템을 구매할수있어요!", inline=False)
+            embed.set_footer(text="shop.audiscordbot.xyz")
+            await ctx.send(embed=embed)
+
         elif arg == "SCHOOL" or arg == "학교":
             if "school" in EXTENSIONS:
                 embed = discord.Embed(title=get_lan(ctx.author.id, "help_school"),
@@ -54,6 +65,8 @@ class Help (commands.Cog) :
             embed = discord.Embed(title=get_lan(ctx.author.id, "help_utils"),
                                   description=get_lan(ctx.author.id, "help_utils_description"), color=color_code)
             embed.set_footer(text="audiscordbot.xyz")
+            embed.add_field(name="`!고음질변환` <URL> or <영상제목>", value=">>> 고음질 변환 아이템을 구매한 유저가 사용할 수 있는 명령어입니다",
+                            inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_utils_convert_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_utils_convert_info").format(commandInt=commandInt),
                             inline=False)
@@ -70,8 +83,6 @@ class Help (commands.Cog) :
                             value=get_lan(ctx.author.id, "help_utils_profile_info").format(commandInt=commandInt),
                             inline=False)
             embed.add_field(name="`!이모지생성` <들어갈 글자>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
-                            inline=False)
-            embed.add_field(name="`!등록` <주문번호>", value=">>> 상점에서 구매한 포인트를 추가해줍니다",
                             inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_general_melon_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_general_melon_info").format(commandInt=commandInt),
@@ -146,8 +157,11 @@ class Help (commands.Cog) :
             embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name=get_lan(ctx.author.id, "help_general_command").format(commandInt=commandInt), value=get_lan(ctx.author.id, "help_general_command_info"), inline=False)
 
+            embed.add_field(name="`!도움 상점`", value=">>> 상점 관련 명령어들을 보내드려요!", inline=False)
+
             if "music" in EXTENSIONS:
                 embed.add_field(name=get_lan(ctx.author.id, "help_music_command").format(commandInt=commandInt), value=get_lan(ctx.author.id, "help_music_command_info"), inline=False)
+
 
             if "school" in EXTENSIONS:
                 embed.add_field(name=get_lan(ctx.author.id, "help_school_command").format(commandInt=commandInt), value=get_lan(ctx.author.id, "help_school_command_info"), inline=False)
