@@ -25,7 +25,8 @@ class Config(object):
                 'EmojiGenerator',
                 'addr',
                 'corona',
-                'aucoin']
+                'aucoin',
+                'shop']
 
     OWNERS = [123456789] # 관리자의 아이디
     commandInt = "" # 명령인자
