@@ -57,10 +57,37 @@ class emojigenerator(commands.Cog):
             embe.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embe)
         except Exception as e:
-            embe = discord.Embed(title="이모지생성", description=f"ERROR", color=0x0066ff)
+            embe = discord.Embed(title="이모지생성", description=f"오류발생", color=0x0066ff)
             embe.add_field(name="오류", value=f"{e}")
             embe.set_footer(text="audiscordbot.xyz")
             await ctx.send(embed=embe)
+
+    @emojigen.error
+    async def emojigen_error(self, ctx, error):
+        embe = discord.Embed(title="이모지생성", description=f"오류발생", color=0x0066ff)
+        embe.set_footer(text="audiscordbot.xyz")
+        if isinstance(error, commands.MissingRequiredArgument):
+            embe.add_field(name="MissingRequiredArgument",
+                           value=f"`!이모지생성` <들어갈 글자> <글시체> <색상>\n 상세한 명령어는 `!명령어 이모지` 에서 확인해주세요")
+            await ctx.send(embed=embe)
+        elif isinstance(error, commands.MissingPermissions):
+            embe.add_field(name="MissingPermissions", value="이 명령어를 실행할 권한이 없습니다\n"
+                                                             f"필요한 권한: `{', '.join(error.missing_perms)}`")
+        elif isinstance(error, commands.CheckFailure):
+            embe.add_field(name="CheckFailure", value="당신은 이 명령어를 사용할 수 없습니다.")
+        elif isinstance(error, commands.BotMissingPermissions):
+            embe.add_field(name="BotMissingPermissions",
+                           value=f"권한이 없습니다!")
+            await ctx.send(embed=embe)
+        else:
+            embe.add_field(name="오류발생",
+                           value=f"{error}")
+            await ctx.send(embed=embe)
+
+
+
+
+
 
 
 

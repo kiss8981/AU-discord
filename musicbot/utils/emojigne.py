@@ -1,10 +1,12 @@
 from PIL import Image, ImageDraw, ImageFont
 
 
-def generate_emoji(text, name, fonttype: str = None, fontcolor: str = None, fontsize=64):
+def generate_emoji(text, name, fonttype: str = None, fontcolor: str = None, fontsize=60):
 
 
     if fonttype == None:
+        fonttype = "NanumGothicBold.ttf"
+    elif fonttype == "0":
         fonttype = "NanumGothicBold.ttf"
     elif fonttype == "1":
         fonttype = "GmarketSansTTFBold.ttf"
@@ -14,8 +16,8 @@ def generate_emoji(text, name, fonttype: str = None, fontcolor: str = None, font
         fonttype = "Cafe24Danjunghae.ttf"
 
     if fontcolor == None:
-        fontcolor == "#fff"
-    elif fontcolor == "노란":
+        fontcolor = "#fff"
+    elif fontcolor == "노랑":
         fontcolor = "#fffc00"
     elif fontcolor == "하늘":
         fontcolor = "#57ffdd"
@@ -40,8 +42,8 @@ def generate_emoji(text, name, fonttype: str = None, fontcolor: str = None, font
         draw.text((5, -7), "{}".format(text[0]), font=font, fill=fontcolor)
         image.save(f"emoji/{name}.png", "PNG")
     elif len(text) == 2:
-        font = ImageFont.truetype(fonttype, size=70)
-        draw.text((-2, 20), "{}".format(text[0:2]), font=font, fill=fontcolor)
+        font = ImageFont.truetype(fonttype, size=66)
+        draw.text((-1, 26), "{}".format(text[0:2]), font=font, fill=fontcolor)
         image.save(f"emoji/{name}.png", "PNG")
     elif len(text) == 3:
         font = ImageFont.truetype(fonttype, size=62)

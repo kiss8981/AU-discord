@@ -45,7 +45,9 @@ class Help (commands.Cog) :
             embed.add_field(name="`!보유`", value=">>> 보유하신 포인트를 알려줘요!",
                             inline=False)
             embed.add_field(name="`!상점 고음질변환`", value=">>> 고음질변환 아이템을 구매할수있어요!", inline=False)
+            embed.add_field(name="`!상점 이모지생성`", value=">>> 이모지생성 아이템을 구매할수있어요!", inline=False)
             embed.set_footer(text="shop.audiscordbot.xyz")
+
             await ctx.send(embed=embed)
 
         elif arg == "SCHOOL" or arg == "학교":
@@ -60,6 +62,29 @@ class Help (commands.Cog) :
                                 value=get_lan(ctx.author.id, "help_school_info_meal").format(commandInt=commandInt),
                                 inline=False)
                 await ctx.send(embed=embed)
+        elif arg == "emoji" or arg == "이모지":
+            embed = discord.Embed(title="이모지 생성 (유료)",
+                                  description=get_lan(ctx.author.id, "help_utils_description"), color=color_code)
+            embed.add_field(name="`!이모지생성` <들어갈 글자> <글시체> <색상>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
+                            inline=False)
+            embed.add_field(name="사용가능한 색상", value="<하늘> : <:emoji_129:841172404868481054>\n"
+                                                   "<빨강> : <:emoji_861:841172468105347083>\n"
+                                                   "<연두> : <:emoji_797:841172554579574834>\n"
+                                                   "<노랑> : <:emoji_328:841171984704733194>\n"
+                                                   "<핑크> : <:emoji_176:841172438439821312>\n"
+                                                   "<민트> : <:emoji_295:841172530361925642>\n"
+                                                   "<보라> : <:emoji_269:841172503379836958>\n"
+                                                   "<주황> : <:emoji_120:841172581403066398>",
+                            inline=False)
+            embed.add_field(name="사용가능한 폰트", value="<0> : <:emoji_118:841180119200432148>\n"
+                                                   "<1> : <:emoji_370:841180173809352705>\n"
+                                                   "<2> : <:emoji_189:841180178347982848>\n"
+                                                   "<3> : <:emoji_818:841180179472318514>\n",
+                            inline=False)
+            embed.add_field(name="예시", value="ex) !이모지생성 예시 1 민트\n 출력물 : <:emoji_295:841172530361925642>",
+                            inline=False)
+            embed.set_footer(text="shop.audiscordbot.xyz")
+            await ctx.send(embed=embed)
 
         elif arg == "UTILS" or arg == "유틸":
             embed = discord.Embed(title=get_lan(ctx.author.id, "help_utils"),
@@ -81,8 +106,6 @@ class Help (commands.Cog) :
                             inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_utils_profile_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_utils_profile_info").format(commandInt=commandInt),
-                            inline=False)
-            embed.add_field(name="`!이모지생성` <들어갈 글자>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
                             inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_general_melon_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_general_melon_info").format(commandInt=commandInt),
@@ -156,6 +179,8 @@ class Help (commands.Cog) :
             embed=discord.Embed(title=get_lan(ctx.author.id, "help"), description=get_lan(ctx.author.id, "help_info").format(bot_name=self.bot.user.name), color=color_code)
             embed.set_footer(text="audiscordbot.xyz")
             embed.add_field(name=get_lan(ctx.author.id, "help_general_command").format(commandInt=commandInt), value=get_lan(ctx.author.id, "help_general_command_info"), inline=False)
+
+            embed.add_field(name="`!도움 이모지`", value=">>> 이모지 관련 명령어들을 보내드려요!", inline=False)
 
             embed.add_field(name="`!도움 상점`", value=">>> 상점 관련 명령어들을 보내드려요!", inline=False)
 
