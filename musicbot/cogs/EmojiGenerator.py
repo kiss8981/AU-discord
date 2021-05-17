@@ -34,10 +34,7 @@ class emojigenerator(commands.Cog):
                     guild = ctx.guild
                     rnum = random.randint(0, 1000)
                     generate_emoji(arg, rnum, fonttype, fontcolor)
-                    await msg.edit(content="이모지 생성중.")
-                    await msg.edit(content="이모지 생성중..")
                     sleep(3)
-                    await msg.edit(content="이모지 생성중...")
                     if ctx.author.guild_permissions.manage_emojis:
                         await msg.edit(content="이모지 업로드중...")
                         with open(f"emoji/{rnum}.png", 'rb') as fd:
