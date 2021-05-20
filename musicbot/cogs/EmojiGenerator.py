@@ -17,7 +17,7 @@ class emojigenerator(commands.Cog):
         self.bot = bot
 
     @commands.command(name="이모지생성")
-    async def emojigen(self, ctx, arg, fonttype: str = None, fontcolor: str = None):
+    async def emojigen(self, ctx, arg, fontcolor: str = None, fonttype: str = None):
         user_id = str(ctx.message.author.id)
         cursor = db.emojigen.find({"user_id": user_id})
         for document in await cursor.to_list(length=100):

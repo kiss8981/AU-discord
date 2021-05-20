@@ -65,7 +65,7 @@ class Help (commands.Cog) :
         elif arg == "emoji" or arg == "이모지":
             embed = discord.Embed(title="이모지 생성 (유료)",
                                   description=get_lan(ctx.author.id, "help_utils_description"), color=color_code)
-            embed.add_field(name="`!이모지생성` <들어갈 글자> <글시체> <색상>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
+            embed.add_field(name="`!이모지생성` <들어갈 글자> <색상> <글시체>", value=">>> 내용을 이용하여 최대 4글자 이모지를 만듭니다",
                             inline=False)
             embed.add_field(name="사용가능한 색상", value="<하늘> : <:emoji_129:841172404868481054>\n"
                                                    "<빨강> : <:emoji_861:841172468105347083>\n"
@@ -81,7 +81,7 @@ class Help (commands.Cog) :
                                                    "<2> : <:emoji_189:841180178347982848>\n"
                                                    "<3> : <:emoji_818:841180179472318514>\n",
                             inline=False)
-            embed.add_field(name="예시", value="ex) !이모지생성 예시 1 민트\n 출력물 : <:emoji_295:841172530361925642>",
+            embed.add_field(name="예시", value="ex) !이모지생성 예시 민트 1 \n 출력물 : <:emoji_295:841172530361925642>",
                             inline=False)
             embed.set_footer(text="shop.audiscordbot.xyz")
             await ctx.send(embed=embed)
