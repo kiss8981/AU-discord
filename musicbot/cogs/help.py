@@ -90,7 +90,7 @@ class Help (commands.Cog) :
             embed = discord.Embed(title=get_lan(ctx.author.id, "help_utils"),
                                   description=get_lan(ctx.author.id, "help_utils_description"), color=color_code)
             embed.set_footer(text="audiscordbot.xyz")
-            embed.add_field(name="`!고음질변환` <URL> or <영상제목>", value=">>> 고음질 변환 아이템을 구매한 유저가 사용할 수 있는 명령어입니다",
+            embed.add_field(name="`!고음질변환` <URL> or <제목>", value=">>> 고음질 변환 아이템을 구매한 유저가 사용할 수 있는 명령어입니다",
                             inline=False)
             embed.add_field(name=get_lan(ctx.author.id, "help_utils_convert_command").format(commandInt=commandInt),
                             value=get_lan(ctx.author.id, "help_utils_convert_info").format(commandInt=commandInt),
