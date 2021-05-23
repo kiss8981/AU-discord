@@ -4,7 +4,7 @@ from discord.ext import commands
 from musicbot import LOGGER, color_code
 from musicbot.utils import confirm
 
-dbclient = motor.motor_asyncio.AsyncIOMotorClient("mongodb://192.168.0.13:27017")
+dbclient = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
 db = dbclient.aubot
 
 
@@ -15,6 +15,10 @@ class shop(commands.Cog):
 
     @commands.command(name='상점')
     async def shop(self, ctx, *, arg: str = None):
+        user_id = str(ctx.message.author.id)
+        cursor2 = db.AUpoint.find({"user_id": user_id})
+        for document in await cursor2.to_list(length=100):
+            useramount = document["point"]
         if not arg == None:
             arg = arg.upper()
         try:
