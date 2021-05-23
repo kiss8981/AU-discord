@@ -44,8 +44,8 @@ class emojigenerator(commands.Cog):
                     else:
                         await msg.edit(content="권한이 없습니다!")
             else:
-                embe = discord.Embed(title="MP3변환", description=f"고음질 변환권 미구매 유저입니다", color=0x0066ff)
-                embe.add_field(name="고음질 MP3 변환권을 구매하실 수 있습니다!", value="`!상점` 을 이용해주세요")
+                embe = discord.Embed(title="이모지생성", description=f"이모지생성권 미구매 유저입니다", color=0x0066ff)
+                embe.add_field(name="이모지생성권을 구매하실 수 있습니다!", value="`!상점` 을 이용해주세요")
                 embe.set_footer(text="audiscordbot.xyz")
                 await ctx.send(embed=embe)
         except UnboundLocalError:

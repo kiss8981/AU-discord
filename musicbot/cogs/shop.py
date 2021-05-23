@@ -29,7 +29,7 @@ class shop(commands.Cog):
                 for document in await cursor2.to_list(length=100):
                     useramount = document["point"]
                 embed = discord.Embed(title="구매", description="MP3 고음질 변환권을 구매하시겠습니까? \n 500AU가 차감됩니다")
-                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                 msg = await ctx.send(embed=embed)
                 res = await confirm.confirm(self.bot, ctx, msg)
                 if res == True:
@@ -46,11 +46,11 @@ class shop(commands.Cog):
                                 return await msg.edit(embed=embed)
                             else:
                                 embed = discord.Embed(title="구매", description="포인트가 부족합니다")
-                                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                                 return await msg.edit(embed=embed)
                         if userpurchase == "true":
                             embed = discord.Embed(title="구매", description="이미 구매하신 아이템입니다")
-                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                             return await msg.edit(embed=embed)
                     except UnboundLocalError:
                         if useramount >= 500:
@@ -64,7 +64,7 @@ class shop(commands.Cog):
                             await db.preconvert.insert_one(
                                 {"user_id": user_id, "purchase": "false"})
                             embed = discord.Embed(title="구매", description="포인트가 부족합니다")
-                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                             return await msg.edit(embed=embed)
                     except Exception as e:
                         embed = discord.Embed(title="상점", description="ERROR", color=color_code)
@@ -73,7 +73,7 @@ class shop(commands.Cog):
                         await ctx.send(embed=embed)
                 if res == False:
                     embed = discord.Embed(title="구매", description="구매가 취소 되었습니다")
-                    embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                    embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                     return await msg.edit(embed=embed)
             if arg == "이모지생성":
                 user_id = str(ctx.message.author.id)
@@ -81,8 +81,8 @@ class shop(commands.Cog):
                 cursor2 = db.AUpoint.find({"user_id": user_id})
                 for document in await cursor2.to_list(length=100):
                     useramount = document["point"]
-                embed = discord.Embed(title="구매", description="이모지생성권 구매하시겠습니까? \n 5000AU가 차감됩니다")
-                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                embed = discord.Embed(title="구매", description="이모지생성권 구매하시겠습니까? \n 5000MZ가 차감됩니다")
+                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                 msg = await ctx.send(embed=embed)
                 res = await confirm.confirm(self.bot, ctx, msg)
                 if res == True:
@@ -99,11 +99,11 @@ class shop(commands.Cog):
                                 return await msg.edit(embed=embed)
                             else:
                                 embed = discord.Embed(title="구매", description="포인트가 부족합니다")
-                                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                                 return await msg.edit(embed=embed)
                         if userpurchase == "true":
                             embed = discord.Embed(title="구매", description="이미 구매하신 아이템입니다")
-                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                             return await msg.edit(embed=embed)
                     except UnboundLocalError:
                         if useramount >= 500:
@@ -117,7 +117,7 @@ class shop(commands.Cog):
                             await db.emojigen.insert_one(
                                 {"user_id": user_id, "purchase": "false"})
                             embed = discord.Embed(title="구매", description="포인트가 부족합니다")
-                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                            embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                             return await msg.edit(embed=embed)
                     except Exception as e:
                         embed = discord.Embed(title="상점", description="ERROR", color=color_code)
@@ -126,21 +126,21 @@ class shop(commands.Cog):
                         await ctx.send(embed=embed)
                 if res == False:
                     embed = discord.Embed(title="구매", description="구매가 취소 되었습니다")
-                    embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                    embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                     return await msg.edit(embed=embed)
             else:
                 embed = discord.Embed(title="상점", description="아래에 있는 명령어들을 이용해 상점을 이용해보세요!", color=color_code)
                 embed.set_footer(text="shop.audiscordbot.xyz")
                 embed.add_field(name="`!상점 고음질변환`", value=">>> MP3 고음질 변환권을 구매합니다", inline=False)
                 embed.add_field(name="`!상점 이모지생성`", value=">>> 이모지생성권을 구매합니다", inline=False)
-                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}AU")
+                embed.add_field(name="현재 보유 중인 포인트", value=f"{useramount}MZ")
                 await ctx.send(embed=embed)
         except UnboundLocalError:
             embed = discord.Embed(title="상점", description="아래에 있는 명령어들을 이용해 상점을 이용해보세요!", color=color_code)
             embed.set_footer(text="shop.audiscordbot.xyz")
             embed.add_field(name="`!상점 고음질변환`", value=">>> MP3 고음질 변환권을 구매합니다", inline=False)
             embed.add_field(name="`!상점 이모지생성`", value=">>> 이모지생성권을 구매합니다", inline=False)
-            embed.add_field(name="현재 보유 중인 포인트", value=f"0AU", inline=False)
+            embed.add_field(name="현재 보유 중인 포인트", value=f"0MZ", inline=False)
             embed.add_field(name="포인트가 없어 구매가 불가능합니다", value=f"https://shop.audiscordbot.xyz 에서 포인트를 구매해주세요!", inline=False)
             embed.set_footer(text="shop.audiscordbot.xyz")
             await ctx.send(embed=embed)
