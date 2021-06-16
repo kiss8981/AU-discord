@@ -32,7 +32,7 @@ class autojindan(commands.Cog):
             embed.set_footer(text="audiscordbot.xyz")
             return await ctx.reply(embed=embed)
         token = hcskr_result['token']
-        await db.autojindanDB.insert_one({"user_name": user_name, "user_id": user_id, "token": token})
+        await db.autojindanDB.insert_one({"user_name": user_name, "user_id": user_id, "token": token, "name": name})
         embed = discord.embeds.Embed(title=f"자가진단 등록 성공", description=f"매일 아침 7시경에 자동으로 자가 진단이 수행됩니다!\n자가진단 기록은 [여기](http://discord.gg/cs3EGVf3Qd)에서 확인가능합니다\n자동으로 [개인정보처리방침](http://audiscordbot.xyz/privacy)에 동의 하게됩니다", author=ctx.author)
         embed.set_footer(text="audiscordbot.xyz")
         await ctx.reply(embed=embed)
